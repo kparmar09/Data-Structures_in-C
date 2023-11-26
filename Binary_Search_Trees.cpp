@@ -29,14 +29,29 @@ int Height(struct Node *r);
 int Count(struct Node *r);
 void DisplayTree(struct Node *r);
 
+// Specific Functions for Binary Search Trees (BST):-
+struct Node* Search_in_BST(struct Node *r, int key);
+void Insert_in_BST(struct Node *r, int x);
+struct Node* InOrder_Predecessor(struct Node *p);
+struct Node* InOrder_Successor(struct Node *p);
+struct Node* Delete_from_BST(struct Node **r, int x);
 
+// NOTE: While inputting values into BST, always follow the BST principle and don't add duplicates.
 int main(){
     struct Node *root = createTree();
+    struct Node *x;
+    x = Search_in_BST(root, 3);
+    x!=NULL?printf("Key Found!\n"):printf("Key Not Found!\n");
+    Insert_in_BST(root, 2);
+    Insert_in_BST(root, 60);
+    Delete_from_BST(&root, 70);
+    //Delete_from_BST(&root, 50);
+    //Check Later .. Might be a problem while deleting Root value.
     DisplayTree(root);
     return 0;
 }
 
-
+// Queue Functions:-
 struct Queue* CreateQueue(int size){
     struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue));
     q->front = -1;
@@ -45,7 +60,6 @@ struct Queue* CreateQueue(int size){
     q->A = (struct Node**)malloc(q->size*sizeof(struct Node*));
     return q;
 }
-
 void enqueue(struct Queue *q, struct Node *s){
     if(q->rear == q->size-1){
         printf("OverFlow\n");
@@ -55,7 +69,6 @@ void enqueue(struct Queue *q, struct Node *s){
         q->A[q->rear] = s;
     }
 }
-
 struct Node* dequeue(struct Queue *q){
     struct Node *t = NULL;
     if(q->front == q->rear+1){
@@ -68,7 +81,6 @@ struct Node* dequeue(struct Queue *q){
         return t;
     }
 }
-
 int isEmpty(struct Queue *q){
     if(q->front >= q->rear || (q->front == -1 && q->rear == -1)){
         return 1;
@@ -76,6 +88,7 @@ int isEmpty(struct Queue *q){
     return 0;
 }
 
+// Binary Tree Functions:-
 struct Node* createTree(){
     struct Queue *q = CreateQueue(100);
     struct Node *r = (struct Node*)malloc(sizeof(struct Node));
@@ -161,4 +174,98 @@ void DisplayTree(struct Node *r){
     printf("PostOrder Traversal: ");PostOrder(r);printf("\n");
     printf("Count of Nodes in the Tree is: %d\n", Count(r));
     printf("Height of the Tree is: %d\n", Height(r));
+}
+
+// BST Specific Functions:-
+struct Node* Search_in_BST(struct Node *r, int key){
+    while(r){
+        if(r->data == key){
+            return r;
+        }
+        else if(key < r->data){
+            r = r->lchild;
+        }
+        else{
+            r = r->rchild;
+        }
+    }
+    return NULL;
+}
+
+void Insert_in_BST(struct Node *r, int x){
+    struct Node *p = r;
+    struct Node *q = NULL;
+
+    while(p != NULL){
+        q = p;
+        if(p->data == x){
+            printf("No Duplicates in BST..");
+            return;
+        }
+        else if(x < p->data){
+            p = p->lchild;
+        }
+        else{
+            p = p->rchild;
+        }
+    }
+
+    struct Node *temp = (struct Node*)malloc(sizeof(struct Node));
+    temp->data = x;
+    temp->lchild = temp->rchild = NULL;
+
+    if(temp->data < q->data){
+        q->lchild = temp;
+    }
+    else{
+        q->rchild = temp;
+    }
+    
+}
+
+struct Node *InOrder_Predecessor(struct Node *p){
+    while(p && p->rchild != NULL){
+        p = p->rchild;
+    }
+    return p;
+}
+struct Node *InOrder_Successor(struct Node *p){
+    while(p && p->lchild != NULL){
+        p = p->lchild;
+    }
+    return p;
+}
+
+struct Node* Delete_from_BST(struct Node **r, int x){
+    struct Node *p = (*r);
+    if(p == NULL){
+        return NULL;
+    }
+    if(p->lchild == NULL && p->rchild == NULL){
+        if(p == (*r)){
+            (*r) = NULL;
+        }
+        free(p);
+        return NULL;
+    }
+
+    if(x < p->data){
+        p = Delete_from_BST(&p->lchild, x);
+    }
+    else if(x > p->data){
+        p = Delete_from_BST(&p->rchild, x);
+    }
+    else{
+        if(Height(p->lchild) > Height(p->rchild)){
+            struct Node *q = InOrder_Predecessor(p->lchild);
+            p->data = q->data;
+            p->lchild = Delete_from_BST(&p->lchild, q->data);
+        }
+        else{
+            struct Node *q = InOrder_Successor(p->rchild);
+            p->data = q->data;
+            p->lchild = Delete_from_BST(&p->rchild, q->data);
+        }
+    }
+    return p;
 }
