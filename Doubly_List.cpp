@@ -7,6 +7,42 @@ struct Node{
     struct Node *next;
 };
 
+// Functions for Doubly Linked List:- (Correct Reverse Function..)
+struct Node* Create(int A[], int size);
+void Insert(struct Node **s, int x, int pos);
+int Delete(struct Node **s, int pos);
+void Reverse(struct Node **s);
+void Display(struct Node *s);
+
+//Functions for Circular Doubly Linked List:-
+struct Node* CreateC(int A[], int size);
+void InsertC(struct Node **s, int x, int pos);
+int DeleteC(struct Node **s, int pos);
+void DisplayC(struct Node *s);
+
+
+int main(){
+/*
+    int A[10] = {1,2,3,4,5,6,7,8,9,0};
+    struct Node *s = Create(A, 10);
+    Insert(&s, 98, 5);
+    Insert(&s, 99, 0);
+    Display(s);
+    Delete(&s, 3);
+    Delete(&s, 1);
+    Display(s);
+*/
+/*  
+    int A[10] = {1,2,3,4,5,6,7,8,9,0};
+    struct Node *s = CreateC(A, 10);
+    InsertC(&s, 98, 5);
+    InsertC(&s, 99, 0);
+    DeleteC(&s, 5);
+    DeleteC(&s, 1);
+    DisplayC(s);
+*/
+}
+
 
 // Functions for Doubly Linked List:- (Correct Reverse Function..)
 struct Node* Create(int A[], int size){
@@ -158,30 +194,4 @@ void DisplayC(struct Node *s){
         p = p->next;
     }while(p != s);
     printf("\n");
-}
-
-
-int main(){
-
-/*
-    int A[10] = {1,2,3,4,5,6,7,8,9,0};
-    struct Node *s = Create(A, 10);
-    Insert(&s, 98, 5);
-    Insert(&s, 99, 0);
-    Display(s);
-    Delete(&s, 3);
-    Delete(&s, 1);
-    Display(s);
-*/
-
-/*  
-    int A[10] = {1,2,3,4,5,6,7,8,9,0};
-    struct Node *s = CreateC(A, 10);
-    InsertC(&s, 98, 5);
-    InsertC(&s, 99, 0);
-    DeleteC(&s, 5);
-    DeleteC(&s, 1);
-    DisplayC(s);
-*/
-
 }

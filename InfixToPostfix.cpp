@@ -7,6 +7,46 @@ struct Stack{
     char *A;
 };
 
+// Stack Functions:-
+struct Stack* Create(int size);
+void push(struct Stack *s, char x);
+char pop(struct Stack *s);
+char stackTop(struct Stack *s);
+
+// Functions for Infix to Postfix Conversion and Postfix Eval:-
+int pre(char x);
+int isOperand(char x);
+char* InfixToPostfix(char infix[]);
+int PostfixEval(char *pf);
+
+
+int main(){
+    char infix[20];
+    scanf("%s", infix);
+    char *pf;
+    pf = InfixToPostfix(infix);
+    printf("The Postfix Expression is:- ");
+    for(int i = 0; pf[i] != '\0'; i++){
+        printf("%c", pf[i]);
+    }
+    printf("\nThe evaluation of the postfix expression yields: %d", PostfixEval(pf));
+
+    /*
+    Still this only works for expressions without parenthesis and without operators having right to left precendence
+    Work in Progress...
+    Will need to add functionality for parenthesis checking and other requirements for Postfix conversion
+    The evaluation will only work for single digit numbers as converting double digit numbers which are characters into int is a challenge..
+    */
+    /*
+    eg: INFIX: 1+2*3-4/2
+    POSTFIX: 123*+42/-# (Ignore # as it's just to get the function started as there needs to be a stackTop element initially)
+    postfix evaluation: 5   
+    */
+
+}
+
+
+// Functions for initialising a character stack:-
 struct Stack* Create(int size){
     struct Stack *s = (struct Stack*)malloc(sizeof(struct Stack));
     s->Top = -1;
@@ -42,6 +82,7 @@ char stackTop(struct Stack *s){
     }
 }
 
+// Functions Useful for Infix-Postfix Eval:-
 int pre(char x){
     if(x == '+' || x == '-'){
         return 1;
@@ -85,7 +126,6 @@ char* InfixToPostfix(char infix[]){
     while(s->Top != -1){
         postfix[j++] = pop(s);
     }
-
     postfix[j] = '\0';
     return postfix;
 }
@@ -120,28 +160,3 @@ int PostfixEval(char *pf){
     }
     return pop(s);
 }
-
-// Still this only works for expressions without parenthesis and without operators having right to left precendence
-// Work in Progress...
-// Will need to add functionality for parenthesis checking and other requirements for Postfix conversion
-// The evaluation will only work for single digit numbers as converting double digit numbers which are characters into int is a challenge..
-int main(){
-
-    char infix[20];
-    scanf("%s", infix);
-    char *pf;
-    pf = InfixToPostfix(infix);
-    
-    printf("The Postfix Expression is:- ");
-    for(int i = 0; pf[i] != '\0'; i++){
-        printf("%c", pf[i]);
-    }
-    printf("\nThe evaluation of the postfix expression yields: %d", PostfixEval(pf));
-
-}
-
-/*
-eg: INFIX: 1+2*3-4/2
-POSTFIX: 123*+42/-# (Ignore # as it's just to get the function started as there needs to be a stackTop element initially)
-postfix evaluation: 5   
-*/

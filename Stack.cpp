@@ -8,6 +8,49 @@ struct Stack{
     int Top;
     int *A;
 };
+struct Stack* Create(int size);
+void push(struct Stack *s, int x);
+int pop(struct Stack *s);
+void Display(struct Stack *s);
+
+
+// For Creation of Stack Using Linked List
+struct Node{
+    int data;
+    struct Node *next;
+};
+void pushLL(struct Node**t, int x);
+int popLL(struct Node **t);
+void DisplayLL(struct Node *s);
+
+
+int main(){
+    /*
+    struct Stack *s1;
+    s1 = Create(5);
+    push(s1, 1);
+    push(s1, 2);
+    push(s1, 3);
+    push(s1, 4);
+    push(s1, 5);
+    printf("%d \n", pop(s1));
+    printf("%d \n", pop(s1));
+    Display(s1);
+    */
+    /*
+    struct Node *Top = NULL;
+    pushLL(&Top, 1);
+    pushLL(&Top, 2);
+    pushLL(&Top, 3);
+    pushLL(&Top, 4);
+    pushLL(&Top, 5);
+    printf("%d \n", popLL(&Top));
+    DisplayLL(Top);
+    */
+}
+
+
+// Stack Using Array Functions:-
 struct Stack* Create(int size){
     struct Stack *s = (struct Stack*)malloc(sizeof(struct Stack));
     s->Top = -1;
@@ -41,12 +84,7 @@ void Display(struct Stack *s){
     }
 }
 
-
-// For Creation of Stack Using Linked List
-struct Node{
-    int data;
-    struct Node *next;
-};
+// Stack Using Linked List Functions:-
 void pushLL(struct Node**t, int x){
     struct Node *p = (struct Node*)malloc(sizeof(struct Node));
     if(p == NULL){
@@ -76,33 +114,3 @@ while(s != NULL){
     s = s->next;
 }
 }
-
-
-int main(){
-
-    /*
-    struct Stack *s1;
-    s1 = Create(5);
-    push(s1, 1);
-    push(s1, 2);
-    push(s1, 3);
-    push(s1, 4);
-    push(s1, 5);
-    printf("%d \n", pop(s1));
-    printf("%d \n", pop(s1));
-    Display(s1);
-    */
-
-    /*
-    struct Node *Top = NULL;
-    pushLL(&Top, 1);
-    pushLL(&Top, 2);
-    pushLL(&Top, 3);
-    pushLL(&Top, 4);
-    pushLL(&Top, 5);
-    printf("%d \n", popLL(&Top));
-    DisplayLL(Top);
-    */
-
-}
-

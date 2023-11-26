@@ -9,6 +9,39 @@ struct Queue{
 };
 
 // Simple Queue Functions:-
+struct Queue* CreateQueue(int size);
+void enqueue(struct Queue *q, int x);
+int dequeue(struct Queue *q);
+void display(struct Queue *q);
+int isEmpty(struct Queue *q);
+int isFull(struct Queue *q);
+int first(struct Queue *q);
+int last(struct Queue *q);
+
+
+// Circular Queue Functions:- (NOT WORKING PROPERLY) (Correct this)
+void Cenqueue(struct Queue *q, int x);
+void Cdisplay(struct Queue *q);
+
+
+int main(){
+    /*
+    struct Queue *Q;
+    Q = CreateQueue(5);
+    enqueue(Q, 1);
+    enqueue(Q, 2);
+    enqueue(Q, 3);
+    enqueue(Q, 4);
+    enqueue(Q, 5);
+    dequeue(Q);
+    Display(Q);
+    printf("%d\n", first(Q));
+    printf("%d\n", last(Q));
+    */
+}
+
+
+// Simple Queue Functions:-
 struct Queue* CreateQueue(int size){
     struct Queue *q = (struct Queue*)malloc(sizeof(struct Queue));
     q->front = -1;
@@ -60,13 +93,12 @@ int isFull(struct Queue *q){
 int first(struct Queue *q){
     return q->A[q->front+1];
 }
-int last1(struct Queue *q){
+int last(struct Queue *q){
     return q->A[q->rear];
 }
 
 
 // Circular Queue Functions:- (NOT WORKING PROPERLY)
-
 void Cenqueue(struct Queue *q, int x){
     if((q->rear+1)%q->size == q->front){
         printf("Queue Full\n");
@@ -84,38 +116,3 @@ void Cdisplay(struct Queue *q){
     printf("\n");
 }
 
-
-
-
-int main(){
-
-    /*
-    struct Queue *Q;
-    Q = CreateQueue(5);
-    enqueue(Q, 1);
-    enqueue(Q, 2);
-    enqueue(Q, 3);
-    enqueue(Q, 4);
-    enqueue(Q, 5);
-    dequeue(Q);
-    Display(Q);
-    printf("%d\n", first(Q));
-    printf("%d\n", last(Q));
-    */
-
-    /*
-    struct Queue *Q;
-    Q = CreateQueue(5);
-    Cenqueue(Q, 1);
-    Cenqueue(Q, 2);
-    Cenqueue(Q, 3);
-    Cenqueue(Q, 4);
-    Cenqueue(Q, 5);
-    //Cenqueue(Q, 6);
-    //Cdequeue(Q);
-    //Cdequeue(Q);
-    //Cenqueue(Q, 6);
-    Cdisplay(Q);
-    */
-
-}
